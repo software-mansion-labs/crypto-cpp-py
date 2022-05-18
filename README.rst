@@ -5,5 +5,4 @@ A python packaged `crypto-cpp <https://python-poetry.org/>`_ library, that can b
 
 Dependencies
 ------------
-- cmake
 - cairo-lang
