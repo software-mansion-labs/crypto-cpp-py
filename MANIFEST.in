@@ -1,0 +1,3 @@
+recursive-include ./crypto-cpp *
+include build_extension.sh
+include build_extension.ps1
