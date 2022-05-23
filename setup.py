@@ -47,13 +47,15 @@ with open("README.rst") as f:
 
 setup(
     name="crypto_cpp_py",
-    version="1.0.1",
+    version="1.0.2",
     description="This is a packaged crypto-cpp program",
     author="Wojciech Szymczyk",
     author_email="wojciech.szymczyk@swmansion.com",
     url="https://github.com/software-mansion-labs/crypto-cpp-py.git",
     long_description=long_description,
     long_description_content_type="text/x-rst",
+    install_requires=["cairo_lang"],
+    extras_require={"build": ["cmake>=3.22.4"]},
     ext_modules=[CryptoExtension()],
     cmdclass={
         "build_py": BuildPy,
