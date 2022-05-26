@@ -47,7 +47,7 @@ with open("README.rst") as f:
 
 setup(
     name="crypto_cpp_py",
-    version="1.0.2",
+    version="1.0.3",
     description="This is a packaged crypto-cpp program",
     author="Wojciech Szymczyk",
     author_email="wojciech.szymczyk@swmansion.com",
@@ -61,7 +61,7 @@ setup(
         "build_py": BuildPy,
         "build_ext": BuildCrypto
     },
-    python_requires=">=3.7.2,<3.10",
+    python_requires=">=3.7.2",
     packages=["crypto_cpp_py"],
     package_data={
         "crypto_cpp_py": ["../libcrypto_c_exports.*"]
