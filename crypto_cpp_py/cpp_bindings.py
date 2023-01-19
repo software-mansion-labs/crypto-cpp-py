@@ -6,7 +6,7 @@ from typing import Optional, Tuple
 from starkware.crypto.signature.signature import inv_mod_curve_size, generate_k_rfc6979
 
 CPP_LIB_BINDING = None
-OUT_BUFFER_SIZE = 251
+OUT_BUFFER_SIZE = 1024
 
 
 def unload_cpp_lib():
@@ -54,6 +54,10 @@ def load_cpp_lib():
         ctypes.c_void_p,
         ctypes.c_void_p,
     ]
+    CPP_LIB_BINDING.GetPublicKey.argtypes = [
+        ctypes.c_void_p,
+        ctypes.c_void_p,
+    ]
 
 
 def cpp_binding_loaded() -> bool:
@@ -72,6 +76,32 @@ def cpp_hash(left: int, right: int) -> int:
         CPP_LIB_BINDING.Hash(
             left.to_bytes(32, "little", signed=False),
             right.to_bytes(32, "little", signed=False),
+            res,
+        )
+        != 0
+    ):
+        raise ValueError(res.raw.rstrip(b"\00"))
+    return int.from_bytes(res.raw[:32], "little", signed=False)
+
+
+def cpp_verify(msg_hash, r, w, stark_key) -> bool:
+    load_cpp_lib()
+
+    return CPP_LIB_BINDING.Verify(
+        stark_key.to_bytes(32, "little", signed=False),
+        msg_hash.to_bytes(32, "little", signed=False),
+        r.to_bytes(32, "little", signed=False),
+        w.to_bytes(32, "little", signed=False),
+    )
+
+
+def cpp_get_public_key(private_key) -> int:
+    load_cpp_lib()
+    res = ctypes.create_string_buffer(OUT_BUFFER_SIZE)
+
+    if (
+        CPP_LIB_BINDING.GetPublicKey(
+            private_key.to_bytes(32, "little", signed=False),
             res,
         )
         != 0
