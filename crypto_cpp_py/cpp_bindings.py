@@ -6,7 +6,7 @@ from typing import Optional, Tuple
 from starkware.crypto.signature.signature import inv_mod_curve_size, generate_k_rfc6979
 
 CPP_LIB_BINDING = None
-OUT_BUFFER_SIZE = 251
+OUT_BUFFER_SIZE = 1024
 
 
 def unload_cpp_lib():
