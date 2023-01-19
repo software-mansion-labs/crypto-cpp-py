@@ -54,6 +54,10 @@ def load_cpp_lib():
         ctypes.c_void_p,
         ctypes.c_void_p,
     ]
+    CPP_LIB_BINDING.GetPublicKey.argtypes = [
+        ctypes.c_void_p,
+        ctypes.c_void_p,
+    ]
 
 
 def cpp_binding_loaded() -> bool:
@@ -89,6 +93,21 @@ def cpp_verify(msg_hash, r, w, stark_key) -> bool:
         r.to_bytes(32, "little", signed=False),
         w.to_bytes(32, "little", signed=False),
     )
+
+
+def cpp_get_public_key(private_key) -> int:
+    load_cpp_lib()
+    res = ctypes.create_string_buffer(OUT_BUFFER_SIZE)
+
+    if (
+        CPP_LIB_BINDING.GetPublicKey(
+            private_key.to_bytes(32, "little", signed=False),
+            res,
+        )
+        != 0
+    ):
+        raise ValueError(res.raw.rstrip(b"\00"))
+    return int.from_bytes(res.raw[:32], "little", signed=False)
 
 
 def cpp_sign(msg_hash, priv_key, seed: Optional[int] = 32) -> ECSignature:
