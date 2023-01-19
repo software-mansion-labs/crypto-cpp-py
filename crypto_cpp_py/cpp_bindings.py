@@ -80,6 +80,17 @@ def cpp_hash(left: int, right: int) -> int:
     return int.from_bytes(res.raw[:32], "little", signed=False)
 
 
+def cpp_verify(msg_hash, r, w, stark_key) -> bool:
+    load_cpp_lib()
+
+    return CPP_LIB_BINDING.Verify(
+        stark_key.to_bytes(32, "little", signed=False),
+        msg_hash.to_bytes(32, "little", signed=False),
+        r.to_bytes(32, "little", signed=False),
+        w.to_bytes(32, "little", signed=False),
+    )
+
+
 def cpp_sign(msg_hash, priv_key, seed: Optional[int] = 32) -> ECSignature:
     load_cpp_lib()
     res = ctypes.create_string_buffer(OUT_BUFFER_SIZE)
