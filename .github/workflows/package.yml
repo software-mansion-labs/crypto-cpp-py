@@ -7,42 +7,50 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macOS-11, windows-2019, ubuntu-20.04]
+        os: [macos-11, macos-12, windows-2019, ubuntu-20.04]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
         with:
           platforms: all
 
       - name: Install cibuildwheel
-        run: python -X utf8 -m pip install cibuildwheel==2.3.1
+        run: python -X utf8 -m pip install cibuildwheel==2.12.0
 
       - name: Set up MinGW
         if: runner.os == 'Windows'
-        uses: egor-tensin/setup-mingw@v2
+        uses: egor-tensin/setup-mingw@84c781b557efd538dec66bde06988d81cd3138cf
         with:
           platform: x64
+
+      - name: Set macos-11 deployment target
+        if: matrix.os == 'macos-11'
+        run: echo "MACOSX_DEPLOYMENT_TARGET=11.0" >> $GITHUB_ENV
+
+      - name: Set macos-12 deployment target
+        if: matrix.os == 'macos-12'
+        run: echo "MACOSX_DEPLOYMENT_TARGET=12.0" >> $GITHUB_ENV
 
       - name: Build wheels
         run: python -X utf8 -m cibuildwheel --output-dir wheelhouse
         env:
           CIBW_ARCHS: all
-          CIBW_ARCHS_MACOS: "x86_64"
           CIBW_BUILD_FRONTEND: "build"
-          CIBW_BUILD: cp37-* cp38-* cp39-*
+          CIBW_BUILD: cp38-* cp39-* cp310-*
           CIBW_SKIP: '*i686 cp39-win_arm64'
-          MACOSX_DEPLOYMENT_TARGET: "11.0"
+          CIBW_ARCHS_MACOS: "universal2"
+          CMAKE_OSX_ARCHITECTURES: "arm64;x86_64"
 
       - name: Upload built wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
 
@@ -50,14 +58,14 @@ jobs:
     name: Build SDist
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: true
 
       - name: Build SDist
         run: python setup.py sdist
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           path: dist/*.tar.gz
 
@@ -67,12 +75,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: artifact
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@release/v1
+      - uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
