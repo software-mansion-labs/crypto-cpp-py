@@ -7,18 +7,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11, macos-12] #, windows-2019, ubuntu-20.04]
+        os: [macos-11, macos-12, windows-2019, ubuntu-20.04]
 
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
         with:
           platforms: all
 
@@ -27,7 +27,7 @@ jobs:
 
       - name: Set up MinGW
         if: runner.os == 'Windows'
-        uses: egor-tensin/setup-mingw@v2
+        uses: egor-tensin/setup-mingw@84c781b557efd538dec66bde06988d81cd3138cf
         with:
           platform: x64
 
@@ -69,18 +69,18 @@ jobs:
         with:
           path: dist/*.tar.gz
 
-  # upload_pypi:
-  #   name: Upload package to PyPI
-  #   needs: [build_wheels, build_sdist]
-  #   runs-on: ubuntu-latest
+  upload_pypi:
+    name: Upload package to PyPI
+    needs: [build_wheels, build_sdist]
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/download-artifact@v3
-  #       with:
-  #         name: artifact
-  #         path: dist
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: dist
 
-  #     - uses: pypa/gh-action-pypi-publish@release/v1
-  #       with:
-  #         user: __token__
-  #         password: ${{ secrets.PYPI_TOKEN }}
+      - uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
