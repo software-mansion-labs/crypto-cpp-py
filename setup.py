@@ -56,7 +56,7 @@ setup(
     url="https://github.com/software-mansion-labs/crypto-cpp-py.git",
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    install_requires=["ecdsa", "sympy"],
+    install_requires=["ecdsa==0.18.0", "sympy==1.11.1"],
     extras_require={"build": ["cmake>=3.22.4"]},
     ext_modules=[CryptoExtension()],
     cmdclass={"build_py": BuildPy, "build_ext": BuildCrypto},
