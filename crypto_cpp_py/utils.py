@@ -5,7 +5,7 @@ from typing import Optional
 from ecdsa.rfc6979 import generate_k
 from sympy.core.numbers import igcdex
 
-EC_ORDER = 3618502788666131213697322783095070105526743751716087489154079457884512865583
+EC_ORDER = 0x800000000000010ffffffffffffffffb781126dcae7b2321e66a241adc64d2f
 
 
 def cpp_div_mod(n: int, m: int, p: int) -> int:
