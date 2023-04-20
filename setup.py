@@ -49,10 +49,10 @@ with open("README.rst") as f:
 
 setup(
     name="crypto_cpp_py",
-    version="1.2.0",
+    version="1.3.0",
     description="This is a packaged crypto-cpp program",
-    author="Wojciech Szymczyk",
-    author_email="wojciech.szymczyk@swmansion.com",
+    author="Wojciech Szymczyk, Marcin Warchoł",
+    author_email="wojciech.szymczyk@swmansion.com, marcin.warchol@swmansion.com",
     url="https://github.com/software-mansion-labs/crypto-cpp-py.git",
     long_description=long_description,
     long_description_content_type="text/x-rst",
