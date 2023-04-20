@@ -5,5 +5,6 @@ A python packaged `crypto-cpp <https://python-poetry.org/>`_ library, that can b
 
 Dependencies
 ------------
-- cairo-lang
+- ecdsa,
+- sympy,
 - cmake [optional, for building package from sdist; can be installed with `pip install crypto-cpp-py[build]`]

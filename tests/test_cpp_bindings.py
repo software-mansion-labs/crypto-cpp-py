@@ -1,8 +1,11 @@
 import unittest
 
-from starkware.crypto.signature.signature import inv_mod_curve_size
-
-from crypto_cpp_py.cpp_bindings import cpp_hash, cpp_verify, cpp_get_public_key, cpp_sign
+from crypto_cpp_py.cpp_bindings import (
+    cpp_get_public_key,
+    cpp_hash,
+    cpp_sign,
+    cpp_verify,
+)
 
 
 class TestBindings(unittest.TestCase):
