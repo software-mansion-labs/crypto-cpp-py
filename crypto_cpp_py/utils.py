@@ -1,3 +1,7 @@
+"""
+Those functions were taken from https://github.com/starkware-libs/cairo-lang v0.11.0.2
+The reference commit: https://github.com/starkware-libs/cairo-lang/commit/c954f154bbab04c3fb27f7598b015a9475fc628e
+"""
 import hashlib
 import math
 from typing import Optional
