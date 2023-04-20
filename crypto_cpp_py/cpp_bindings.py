@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import Optional, Tuple
 
-from starkware.crypto.signature.signature import inv_mod_curve_size, generate_k_rfc6979
+from crypto_cpp_py.utils import cpp_generate_k_rfc6979, cpp_inv_mod_curve_size
 
 CPP_LIB_BINDING = None
 OUT_BUFFER_SIZE = 1024
@@ -113,7 +113,7 @@ def cpp_get_public_key(private_key) -> int:
 def cpp_sign(msg_hash, priv_key, seed: Optional[int] = 32) -> ECSignature:
     load_cpp_lib()
     res = ctypes.create_string_buffer(OUT_BUFFER_SIZE)
-    k = generate_k_rfc6979(msg_hash, priv_key, seed)
+    k = cpp_generate_k_rfc6979(msg_hash, priv_key, seed)
     if (
         CPP_LIB_BINDING.Sign(
             priv_key.to_bytes(32, "little", signed=False),
@@ -126,5 +126,5 @@ def cpp_sign(msg_hash, priv_key, seed: Optional[int] = 32) -> ECSignature:
         raise ValueError(res.raw.rstrip(b"\00"))
     # pylint: disable=invalid-name
     w = int.from_bytes(res.raw[32:64], "little", signed=False)
-    s = inv_mod_curve_size(w)
+    s = cpp_inv_mod_curve_size(w)
     return int.from_bytes(res.raw[:32], "little", signed=False), s

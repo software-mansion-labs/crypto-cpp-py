@@ -1,5 +1,6 @@
-import subprocess
 import os
+import subprocess
+
 from setuptools import Extension, setup
 from setuptools.command.build_ext import build_ext
 from setuptools.command.build_py import build_py
@@ -42,6 +43,7 @@ class BuildCrypto(build_ext):
 
         self.already_built = True
 
+
 with open("README.rst") as f:
     long_description = f.read()
 
@@ -54,16 +56,11 @@ setup(
     url="https://github.com/software-mansion-labs/crypto-cpp-py.git",
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    install_requires=["cairo_lang"],
+    install_requires=["ecdsa", "sympy"],
     extras_require={"build": ["cmake>=3.22.4"]},
     ext_modules=[CryptoExtension()],
-    cmdclass={
-        "build_py": BuildPy,
-        "build_ext": BuildCrypto
-    },
+    cmdclass={"build_py": BuildPy, "build_ext": BuildCrypto},
     python_requires=">=3.8",
     packages=["crypto_cpp_py"],
-    package_data={
-        "crypto_cpp_py": ["../libcrypto_c_exports.*"]
-    }
+    package_data={"crypto_cpp_py": ["../libcrypto_c_exports.*"]},
 )
