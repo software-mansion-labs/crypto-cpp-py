@@ -49,7 +49,7 @@ with open("README.rst") as f:
 
 setup(
     name="crypto_cpp_py",
-    version="1.3.0",
+    version="1.3.1",
     description="This is a packaged crypto-cpp program",
     author="Wojciech Szymczyk, Marcin Warchoł",
     author_email="wojciech.szymczyk@swmansion.com, marcin.warchol@swmansion.com",
