@@ -18,7 +18,6 @@ Version 1.3.1 (2023-04-27)
 -------------
 
 * Add support for Python 3.11
-* Disable Windows build
 
 Version 1.3.0 (2023-04-20)
 -------------
