@@ -8,3 +8,19 @@ Dependencies
 - ecdsa,
 - sympy,
 - cmake [optional, for building package from sdist; can be installed with `pip install crypto-cpp-py[build]`]
+
+|
+
+Changelog
+=========
+
+Version 1.3.1 (2023-04-27)
+-------------
+
+* Add support for Python 3.11
+
+Version 1.3.0 (2023-04-20)
+-------------
+
+* Remove cairo-lang dependency
+* Require ecdsa, sympy
