@@ -6,28 +6,33 @@ mkdir -p build/Release
 CMAKE_CXX_COMPILER="g++"
 IFS='-' read -r -a TARGET_ARR_WRONG_ORDER <<< "$PLAT"
 SYS_V="${TARGET_ARR_WRONG_ORDER[1]}"
-TARGET_ARCH="x86_64"
+TARGET_ARCH="${TARGET_ARR_WRONG_ORDER[2]}"
+
+if [[ "$TARGET_ARCH" == "" ]]; then
+  echo "TARGET_ARCH unknown, defaulting to x86_64"
+  TARGET_ARCH="x86_64"
+fi
 
 if [ "$(uname)" == "Darwin" ]; then
-    TARGET_TRIPLET="${TARGET_ARCH}-apple-macos${SYS_V}"
+  TARGET_TRIPLET="${TARGET_ARCH}-apple-macos${SYS_V}"
 
-    if [[ "$(uname -m)" != "$TARGET_ARCH" ]]; then
-      echo "Crosscompiling enabled"
-      export CMAKE_CROSSCOMPILING="1"
-    fi
-    if [[ "$TARGET_ARCH" == *"arm"* ]]; then
-      echo "Compiling for arm architecture"
-      export CMAKE_SYSTEM_PROCESSOR="arm"
-    fi
+  if [[ "$(uname -m)" != "$TARGET_ARCH" ]]; then
+    echo "Crosscompiling enabled"
+    export CMAKE_CROSSCOMPILING="1"
+  fi
+  if [[ "$TARGET_ARCH" == *"arm"* ]]; then
+    echo "Compiling for arm architecture"
+    export CMAKE_SYSTEM_PROCESSOR="arm"
+  fi
 
-    echo "Targeting ${TARGET_TRIPLET}"
-    export MACOSX_DEPLOYMENT_TARGET="${SYS_V}"
-    export MACOSX_VERSION_MIN="${SYS_V}"
+  echo "Targeting ${TARGET_TRIPLET}"
+  export MACOSX_DEPLOYMENT_TARGET="${SYS_V}"
+  export MACOSX_VERSION_MIN="${SYS_V}"
 
-    sed -i'.original' "s/\${CMAKE_CXX_FLAGS} -std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC/-std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC \${CMAKE_CXX_FLAGS} -target ${TARGET_TRIPLET}/" CMakeLists.txt
-    CMAKE_CXX_COMPILER="clang++"
-  else
-    sed -i'.original' "s/\${CMAKE_CXX_FLAGS} -std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC/-std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC \${CMAKE_CXX_FLAGS}/" CMakeLists.txt
+  sed -i'.original' "s/\${CMAKE_CXX_FLAGS} -std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC/-std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC \${CMAKE_CXX_FLAGS} -target ${TARGET_TRIPLET}/" CMakeLists.txt
+  CMAKE_CXX_COMPILER="clang++"
+else
+  sed -i'.original' "s/\${CMAKE_CXX_FLAGS} -std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC/-std=c++17 -Werror -Wall -Wextra -fno-strict-aliasing -fPIC \${CMAKE_CXX_FLAGS}/" CMakeLists.txt
 fi
 
 cat CMakeLists.txt
