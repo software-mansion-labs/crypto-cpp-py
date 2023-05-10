@@ -6,7 +6,7 @@ mkdir -p build/Release
 CMAKE_CXX_COMPILER="g++"
 IFS='-' read -r -a TARGET_ARR_WRONG_ORDER <<< "$PLAT"
 SYS_V="${TARGET_ARR_WRONG_ORDER[1]}"
-TARGET_ARCH="${TARGET_ARR_WRONG_ORDER[2]}"
+TARGET_ARCH="x86_64"
 
 if [ "$(uname)" == "Darwin" ]; then
     TARGET_TRIPLET="${TARGET_ARCH}-apple-macos${SYS_V}"
