@@ -8,16 +8,6 @@ IFS='-' read -r -a TARGET_ARR_WRONG_ORDER <<< "$PLAT"
 SYS_V="${TARGET_ARR_WRONG_ORDER[1]}"
 TARGET_ARCH="${TARGET_ARR_WRONG_ORDER[2]}"
 
-if [[ "$TARGET_ARCH" == "" ]]; then
-  if [ "$(uname)" == "Darwin" ]; then
-    echo "TARGET_ARCH unknown, defaulting to universal2"
-    TARGET_ARCH="universal2"
-  else
-    echo "TARGET_ARCH unknown, defaulting to x86_64"
-    TARGET_ARCH="x86_64"
-  fi
-fi
-
 if [ "$(uname)" == "Darwin" ]; then
   TARGET_TRIPLET="${TARGET_ARCH}-apple-macos${SYS_V}"
 
