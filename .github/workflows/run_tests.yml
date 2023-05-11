@@ -35,7 +35,11 @@ jobs:
 
       - name: Install dependencies
         run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+              pip install pywin32==306
+          fi
           pip install ecdsa==0.18.0 sympy==1.11.1
+        shell: bash
 
       - name: Build the project
         run: |
