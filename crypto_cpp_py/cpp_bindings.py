@@ -53,7 +53,7 @@ def load_cpp_lib(func):
     return func
 
 
-def load_cpp_lib_windows(dll_name: str) -> ctypes.WinDLL:
+def load_cpp_lib_windows(dll_name: str):
     handle1 = win32con.LOAD_WITH_ALTERED_SEARCH_PATH
     dll_handle = win32api.LoadLibraryEx(dll_name, 0, handle1)
     return ctypes.WinDLL(dll_name, handle=dll_handle)
