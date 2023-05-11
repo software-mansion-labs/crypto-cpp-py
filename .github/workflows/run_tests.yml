@@ -37,16 +37,15 @@ jobs:
         run: |
           pip install ecdsa==0.18.0 sympy==1.11.1
 
-      - name: Build the project - Windows
-        if: ${{ matrix.os }} == "windows-latest"
+      - name: Build the project
         run: |
-          ./build_extension.ps1
-
-      - name: Build the project - Unix
-        if: ${{ matrix.os }} != "windows-latest"
-        run: |
-          export CMAKE_OSX_ARCHITECTURES="arm64;x86_64"
-          ./build_extension.sh
+          if [ "$RUNNER_OS" == "Windows" ]; then
+              ./build_extension.ps1
+          else
+              export CMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+              ./build_extension.sh
+          fi
+        shell: bash
 
       - name: Run tests
         run: |
