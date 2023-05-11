@@ -14,6 +14,11 @@ Dependencies
 Changelog
 =========
 
+Version 1.4.0 (2023-05-12)
+--------------------------
+
+* Add support for Windows
+
 Version 1.3.1 (2023-04-27)
 --------------------------
 
