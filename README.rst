@@ -7,12 +7,18 @@ Dependencies
 ------------
 - ecdsa,
 - sympy,
+- pywin32 (Windows only),
 - cmake [optional, for building package from sdist; can be installed with `pip install crypto-cpp-py[build]`]
 
 |
 
 Changelog
 =========
+
+Version 1.4.0 (2023-05-12)
+--------------------------
+
+* Add support for Windows
 
 Version 1.3.1 (2023-04-27)
 --------------------------
