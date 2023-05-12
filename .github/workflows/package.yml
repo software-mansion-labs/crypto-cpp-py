@@ -1,5 +1,14 @@
 name: Build wheels
-on: workflow_dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_index:
+        type: choice
+        description: 'Package Index'
+        options:
+        - PyPI
+        - TestPyPI
 
 jobs:
   build_wheels:
@@ -73,7 +82,7 @@ jobs:
           path: dist/*.tar.gz
 
   upload_pypi:
-    name: Upload package to PyPI
+    name: Upload package to ${{ github.event.inputs.package_index }}
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
 
@@ -84,6 +93,14 @@ jobs:
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
+        if: ${{ github.event.inputs.package_index }} == "TestPyPI"
+        with:
+          repository_url: https://test.pypi.org/legacy/
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_TOKEN }}
+
+      - uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
+        if: ${{ github.event.inputs.package_index }} == "PyPI"
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
