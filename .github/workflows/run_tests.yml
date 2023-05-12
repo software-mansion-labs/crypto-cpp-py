@@ -39,6 +39,7 @@ jobs:
           pip install pywin32==306
 
       - name: Install dependencies
+        run: |
           pip install ecdsa==0.18.0 sympy==1.11.1
 
       - name: Build the project (Windows)
