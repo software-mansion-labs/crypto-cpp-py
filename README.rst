@@ -7,6 +7,7 @@ Dependencies
 ------------
 - ecdsa,
 - sympy,
+- pywin32 (Windows only),
 - cmake [optional, for building package from sdist; can be installed with `pip install crypto-cpp-py[build]`]
 
 |
