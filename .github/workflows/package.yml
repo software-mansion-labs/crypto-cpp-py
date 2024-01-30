@@ -39,7 +39,7 @@ jobs:
 
       - name: Set up MinGW
         if: runner.os == 'Windows'
-        uses: egor-tensin/setup-mingw@v2
+        uses: egor-tensin/setup-mingw@84c781b557efd538dec66bde06988d81cd3138cf
         with:
           platform: x64
 
