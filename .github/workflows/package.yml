@@ -16,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11, macos-12, macos-13, macos-14, windows-latest, ubuntu-latest]
+        os: [macos-12, macos-13, macos-14, windows-latest, ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v3
@@ -44,13 +44,17 @@ jobs:
           version: 12.2.0
           platform: x64
 
-      - name: Set macos-11 deployment target
-        if: matrix.os == 'macos-11'
-        run: echo "MACOSX_DEPLOYMENT_TARGET=11.0" >> $GITHUB_ENV
-
       - name: Set macos-12 deployment target
         if: matrix.os == 'macos-12'
         run: echo "MACOSX_DEPLOYMENT_TARGET=12.0" >> $GITHUB_ENV
+
+      - name: Set macos-13 deployment target
+        if: matrix.os == 'macos-13'
+        run: echo "MACOSX_DEPLOYMENT_TARGET=13.0" >> $GITHUB_ENV
+
+      - name: Set macos-14 deployment target
+        if: matrix.os == 'macos-14'
+        run: echo "MACOSX_DEPLOYMENT_TARGET=14.0" >> $GITHUB_ENV
 
       - name: Build wheels
         run: python -X utf8 -m cibuildwheel --output-dir wheelhouse
