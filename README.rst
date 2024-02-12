@@ -15,7 +15,7 @@ Dependencies
 Changelog
 =========
 
-Version 1.4.3 (2024-01-30)
+Version 1.4.4 (2024-01-30)
 --------------------------
 
 * Add support for Python 3.12
