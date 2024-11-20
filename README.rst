@@ -15,6 +15,11 @@ Dependencies
 Changelog
 =========
 
+Version 1.4.5 (2024-11-20)
+------------------------------------
+
+* Update `sympy <https://pypi.org/project/sympy/>`_ version to 1.12.1
+
 Version 1.4.4 (2024-01-30)
 --------------------------
 
