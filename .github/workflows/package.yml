@@ -100,6 +100,7 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
         if: ${{ github.event.inputs.package_index }} == "TestPyPI"
         with:
+          verbose: true
           repository_url: https://test.pypi.org/legacy/
           user: __token__
           password: ${{ secrets.TEST_PYPI_TOKEN }}
@@ -107,5 +108,6 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
         if: ${{ github.event.inputs.package_index }} == "PyPI"
         with:
+          verbose: true
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
