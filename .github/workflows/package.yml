@@ -19,18 +19,18 @@ jobs:
         os: [macos-12, macos-13, macos-14, windows-latest, ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.10'
 
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v4
         with:
           platforms: all
 
@@ -67,7 +67,7 @@ jobs:
           CMAKE_OSX_ARCHITECTURES: "arm64;x86_64"
 
       - name: Upload built wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           path: ./wheelhouse/*.whl
 
@@ -75,14 +75,14 @@ jobs:
     name: Build SDist
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           submodules: true
 
       - name: Build SDist
         run: python setup.py sdist
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v7
         with:
           path: dist/*.tar.gz
 
@@ -92,12 +92,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v7
         with:
           name: artifact
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
+      - uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
         if: ${{ github.event.inputs.package_index }} == "TestPyPI"
         with:
           verbose: true
@@ -105,7 +105,7 @@ jobs:
           user: __token__
           password: ${{ secrets.TEST_PYPI_TOKEN }}
 
-      - uses: pypa/gh-action-pypi-publish@c7f29f7adef1a245bd91520e94867e5c6eedddcc
+      - uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
         if: ${{ github.event.inputs.package_index }} == "PyPI"
         with:
           verbose: true
