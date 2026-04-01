@@ -31,7 +31,7 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 
 cat CMakeLists.txt
-(cd build/Release; cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER="${CMAKE_CXX_COMPILER}" -DCMAKE_CXX_FLAGS="-Wno-type-limits -Wno-range-loop-analysis -Wno-unused-parameter" ../..)
+(cd build/Release; cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER="${CMAKE_CXX_COMPILER}" -DCMAKE_CXX_FLAGS="-Wno-type-limits -Wno-range-loop-analysis -Wno-unused-parameter" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ../..)
 
 if [ "$(uname)" == "Darwin" ]; then
   TARGET_TRIPLET="${TARGET_ARCH}-apple-macos${SYS_V}"
