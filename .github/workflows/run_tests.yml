@@ -40,7 +40,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install ecdsa==0.18.0 sympy==1.11.1
+          pip install ecdsa==0.18.0 sympy==1.12.1
 
       - name: Build the project (Windows)
         if: runner.os == 'Windows'
