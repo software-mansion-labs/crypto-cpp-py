@@ -51,7 +51,7 @@ jobs:
       - name: Build wheels
         run: python -X utf8 -m cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_BEFORE_ALL_LINUX: yum install -y boost-devel
+          CIBW_BEFORE_ALL_LINUX: "dnf install -y boost-devel || yum install -y boost-devel || apk add boost-dev"
           CIBW_ARCHS: all
           CIBW_BUILD_FRONTEND: "build"
           CIBW_BUILD: cp310-* cp311-* cp312-* cp313-* cp314-*
