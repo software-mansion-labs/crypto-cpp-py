@@ -60,7 +60,7 @@ setup(
     extras_require={"build": ["cmake>=3.22.4"]},
     ext_modules=[CryptoExtension()],
     cmdclass={"build_py": BuildPy, "build_ext": BuildCrypto},
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     packages=["crypto_cpp_py"],
     package_data={"crypto_cpp_py": ["../libcrypto_c_exports.*"]},
 )
