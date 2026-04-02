@@ -15,6 +15,13 @@ Dependencies
 Changelog
 =========
 
+Version 2.0.0 (2026-04-02)
+--------------------------
+
+* Update dependencies
+* Drop support for Python 3.8 and 3.9
+* Add support for Python 3.13 and 3.14
+
 Version 1.4.5 (2024-11-20)
 --------------------------
 
