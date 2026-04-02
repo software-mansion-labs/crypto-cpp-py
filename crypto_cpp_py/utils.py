@@ -7,7 +7,7 @@ import math
 from typing import Optional
 
 from ecdsa.rfc6979 import generate_k
-from sympy.core.numbers import igcdex
+from sympy.core.intfunc import igcdex
 
 EC_ORDER = 0x800000000000010ffffffffffffffffb781126dcae7b2321e66a241adc64d2f
 

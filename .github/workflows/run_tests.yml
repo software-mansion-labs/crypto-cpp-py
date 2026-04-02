@@ -5,8 +5,6 @@ on:
     branches: [ main ]
 
   pull_request:
-    branches: [ main ]
-
   workflow_dispatch:
 
 jobs:
@@ -36,11 +34,11 @@ jobs:
       - name: Install dependencies (Windows)
         if: runner.os == 'Windows'
         run: |
-          pip install pywin32==306
+          pip install pywin32==311
 
       - name: Install dependencies
         run: |
-          pip install ecdsa==0.18.0 sympy==1.12.1
+          pip install ecdsa==0.19.2 sympy==1.14.0
 
       - name: Build the project (Windows)
         if: runner.os == 'Windows'
