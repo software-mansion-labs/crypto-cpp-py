@@ -51,8 +51,7 @@ jobs:
       - name: Build wheels
         run: python -X utf8 -m cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_BEFORE_ALL_LINUX: "(apt-get update && apt-get install -y libboost-dev) || dnf install -y boost-devel || yum install -y boost-devel || apk add boost-dev"
-          CIBW_ARCHS: all
+          CIBW_ARCHS: "x86_64 aarch64 ppc64le s390x riscv64"
           CIBW_BUILD_FRONTEND: "build"
           CIBW_BUILD: cp310-* cp311-* cp312-* cp313-* cp314-*
           CIBW_SKIP: '*i686 cp310-win_arm64 cp311-win_arm64 cp312-win_arm64 cp313-win_arm64 cp314-win_arm64'
